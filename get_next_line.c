@@ -104,7 +104,7 @@ static char	*read_and_save(int fd, char *remainder, size_t buffer_size)
 	free(buffer);
 	return (remainder);
 }
-
+/*
 #include <stdio.h>
 
 int main(void)
@@ -137,15 +137,9 @@ int main(void)
 	
 	return (0);
 }
-
+*/
 /*
 gcc -Wall -Werror -Wextra -D BUFFER_SIZE=4000 get_next_line.c get_next_line_utils.c get_next_line.h
 
 valgrind --track-origins=yes --leak-check=full ./a.out
-
-update_store
-process_line
-read_and_store
-get_next_line
-
 */
