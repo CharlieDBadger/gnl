@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbolanos <cbolanos@student.42barcelon      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/01 12:42:03 by cbolanos          #+#    #+#             */
+/*   Updated: 2025/02/01 12:42:06 by cbolanos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*ft_strchr(const char *s, int c)
@@ -16,31 +28,27 @@ char	*ft_strchr(const char *s, int c)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
-	char	*s3rtn;
-	int		i;
-	int		j;
+	char	*ptr;
+	size_t	len1;
+	size_t	len2;
 
 	if (!s1)
 		s1 = ft_strdup("");
 	if (!s1 || !s2)
 		return (NULL);
-	s3 = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (s3 == NULL)
-	{
-		free(s1);
-		return (NULL);
-	}
-	s3rtn = s3;
-	i = 0;
-	j = 0;
-	while (s1[i] != '\0')
-		s3[j++] = s1[i++];
-	i = 0;
-	while (s2[i] != '\0')
-		s3[j++] = s2[i++];
-	s3[j] = '\0';
-	free(s1);
-	return (s3rtn);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	s3 = malloc(len1 + len2 + 1);
+	if (!s3)
+		return (free(s1), NULL);
+	ptr = s3;
+	while (*s1)
+		*ptr++ = *s1++;
+	while (*s2)
+		*ptr++ = *s2++;
+	*ptr = '\0';
+	free(s1 - len1);
+	return (s3);
 }
 
 char	*ft_strdup(const char *s)

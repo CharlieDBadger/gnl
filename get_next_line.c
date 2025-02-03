@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbolanos <cbolanos@student.42barcelon      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/01 12:41:25 by cbolanos          #+#    #+#             */
+/*   Updated: 2025/02/01 16:22:23 by cbolanos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-static void update_remainder(char **remainder, int i);
+static void	update_remainder(char **remainder, int i);
 static char	*extract_line(char **remainder);
 static char	*read_and_save(int fd, char *remainder, size_t buffer_size);
 
@@ -18,7 +30,7 @@ char	*get_next_line(int fd)
 		buffer_size = (size_t)BUFFER_SIZE + 1;
 	remainder = read_and_save(fd, remainder, buffer_size);
 	if (!remainder)
-			return (NULL);
+		return (NULL);
 	line = extract_line(&remainder);
 	if (!line && remainder)
 	{
@@ -40,17 +52,17 @@ static char	*extract_line(char **remainder)
 		i++;
 	if ((*remainder)[i] == '\n')
 		i++;
-	line = ft_substr(*remainder, 0 ,i);
+	line = ft_substr(*remainder, 0, i);
 	if (!line)
 		return (NULL);
 	update_remainder(remainder, i);
 	return (line);
 }
 
-static void update_remainder(char **remainder, int i)
+static void	update_remainder(char **remainder, int i)
 {
 	char	*temp;
-	
+
 	if ((*remainder)[i] != '\0')
 	{
 		temp = ft_strdup(*remainder + i);
@@ -92,7 +104,7 @@ static char	*read_and_save(int fd, char *remainder, size_t buffer_size)
 	free(buffer);
 	return (remainder);
 }
-/*
+
 #include <stdio.h>
 
 int main(void)
@@ -112,7 +124,6 @@ int main(void)
 	// Lee cada línea del archivo usando get_next_line
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("Retorno no nulo\n");
 		printf("%s", line);
 		free(line);
 	}
@@ -123,16 +134,18 @@ int main(void)
 		perror("Error al cerrar el archivo");
 		return (1);
 	}
-
+	
 	return (0);
 }
-*/
+
 /*
 gcc -Wall -Werror -Wextra -D BUFFER_SIZE=4000 get_next_line.c get_next_line_utils.c get_next_line.h
 
+valgrind --track-origins=yes --leak-check=full ./a.out
 
 update_store
 process_line
 read_and_store
 get_next_line
+
 */
